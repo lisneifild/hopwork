@@ -1,0 +1,4 @@
+Faker==0.8.4
+Scrapy==1.4.0
+beautifulsoup4==4.6.0
+bs4==0.0.1
