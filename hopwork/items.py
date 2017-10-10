@@ -28,7 +28,24 @@ class ProfileItem(scrapy.Item):
             self._values.get('job_skills', ''),
             self._values.get('job_company', ''),
             self._values.get('job_duration', ''),
+            self._values.get('job_location', ''),
             self._values.get('job_description', ''),
             self._values.get('recommendation_first_name', ''),
             self._values.get('recommendation_last_name', ''),
+        ]
+
+    @property
+    def csv_headline(self):
+        return [
+            'URL',
+            'Profile First Name',
+            'Profile Name',
+            'Job Title',
+            'Job Skills',
+            'Job Company',
+            'Job Duration',
+            'Job Location',
+            'Job Description',
+            'Recommendation First Name',
+            'Recommendation Last Name',
         ]

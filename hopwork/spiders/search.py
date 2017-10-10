@@ -59,9 +59,21 @@ class SearchSpider(scrapy.Spider):
         bs = bs4.BeautifulSoup(response.body_as_unicode(), 'html.parser')
 
         # Find last page number
-        last_page = int(bs.find_all('a', attrs={'class': 'results-pager__item'})[-1].text.strip())
-        for page_number in range(1, last_page+1):
-            yield self.form.profiles(self.parse_page, keyword=response.meta['query'], page=page_number)
+        try:
+            last_page = int(bs.find_all('a', attrs={'class': 'results-pager__item'})[-1].text.strip())
+            for page_number in range(1, last_page+1):
+                yield self.form.profiles(
+                    callback=self.parse_page,
+                    keyword=response.meta['query'],
+                    page=page_number
+                )
+        # Request only one page
+        except:
+            yield self.form.profiles(
+                callback=self.parse_page,
+                keyword=response.meta['query'],
+                page=1
+            )
 
     def parse_page(self, response):
         """
